@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Random;
 import static java.lang.System.out;
 
-
 /**
  * This class is a simple application that writes a random number on a file.
  * 
@@ -62,8 +61,11 @@ public class BadIOGUI {
             @Override
             public void actionPerformed(final ActionEvent e){
                 try {
-                    String content = " I. AM. THE. CONTENT.";
-                    out.println(content);
+
+                    List<String> lines = Files.readAllLines(new File(PATH).toPath());
+                    for (String line : lines) {
+                        out.println(line);
+                    }
                 } catch (Exception dumbass) {
                     JOptionPane.showMessageDialog(frame, dumbass, "Error", JOptionPane.ERROR_MESSAGE);
                     dumbass.printStackTrace(); // NOPMD: allowed as this is just an exercise
