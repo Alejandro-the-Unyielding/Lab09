@@ -17,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Random;
+import static java.lang.System.out;
+
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -45,6 +47,34 @@ public class BadIOGUI {
         canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        final JPanel writePanel = new JPanel();
+        writePanel.setLayout(new BoxLayout(writePanel, BoxLayout.Y_AXIS));
+        canvas.add(writePanel, BorderLayout.CENTER);
+        writePanel.add(write);
+
+
+        JButton read = new JButton("Read");
+        writePanel.add(read);
+
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e){
+                try {
+                    String content = " I. AM. THE. CONTENT.";
+                    out.println(content);
+                } catch (Exception dumbass) {
+                    JOptionPane.showMessageDialog(frame, dumbass, "Error", JOptionPane.ERROR_MESSAGE);
+                    dumbass.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+        });
+
+
+
+
+
         /*
          * Handlers
          */
@@ -81,16 +111,21 @@ public class BadIOGUI {
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / PROPORTION, sh / PROPORTION);
+
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
+
+        frame.pack();
         /*
          * OK, ready to push the frame onscreen
          */
         frame.setVisible(true);
+
+        
     }
 
     /**
